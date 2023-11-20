@@ -8,8 +8,11 @@
     </div>
 <!-- Favorite Ariports -->
     <h1 v-if="favoriteAirports.length">Favorite Airports</h1>
-    <div v-for="airport in favoriteAirports" :key="airport.abbreviation">
-      <airport-card :airport="airport" />
+    <div v-for="(airport,index) in favoriteAirports" :key="airport.abbreviation">
+      <airport-card 
+        :airport="airport"
+        @click="removeFromFavoriteAirport(index)"
+      />
    </div>
   </div>
 </template>
@@ -35,9 +38,14 @@ export default {
         console.log(`Add new airport with id ` + $event.id + ` to Fivorite List`);
       }else{
         console.log(`The airport with id ` + $event.id + ` is already in Fivorite List`)
-      } 
+      }
     }
-    return { airports, favoriteAirports, addToFavoriteAirport }
+    function removeFromFavoriteAirport(index){
+      favoriteAirports.value.splice(index, 1);
+      console.log(`Remove airport with index ` + index + ` to Fivorite List`);
+    }
+
+    return { airports, favoriteAirports, addToFavoriteAirport, removeFromFavoriteAirport}
   }
 }
 </script>
