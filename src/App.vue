@@ -1,8 +1,16 @@
 <template>
   <div class="wrapper">
     <div v-for="airport in airports" :key="airport.abbreviation">
-      <airport-card :airport="airport" />
+      <airport-card 
+        :airport="airport"
+        @addToFavoriteAirports="addToFavoriteAirport($event)"
+      />
     </div>
+<!-- Favorite Ariports -->
+    <h1 v-if="favoriteAirports.length">Favorite Airports</h1>
+    <div v-for="airport in favoriteAirports" :key="airport.abbreviation">
+      <airport-card :airport="airport" />
+   </div>
   </div>
 </template>
 
@@ -17,7 +25,19 @@ export default {
   },
   setup() {
     const airports = ref(allAirports)
-    return { airports }
+    const favoriteAirports = ref([])
+    function addToFavoriteAirport($event) {
+      var exists = this.favoriteAirports.some(a => {
+        return a.id === $event.id;
+      });
+      if(!exists){
+        favoriteAirports.value.push($event);
+        console.log(`Add new airport with id ` + $event.id + ` to Fivorite List`);
+      }else{
+        console.log(`The airport with id ` + $event.id + ` is already in Fivorite List`)
+      } 
+    }
+    return { airports, favoriteAirports, addToFavoriteAirport }
   }
 }
 </script>
