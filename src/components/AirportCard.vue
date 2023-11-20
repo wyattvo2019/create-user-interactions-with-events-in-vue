@@ -1,5 +1,5 @@
 <template>
-  <div class="airport" @click.shift="selectAirport(airport)">
+  <div class="airport" @click="$emit('addToFavoriteAirports', airport)">
     <p>{{ airport.abbreviation }}</p>
     <p>{{ airport.name }}</p>
     <p>{{ airport.city }}, {{ airport.state }}</p>
