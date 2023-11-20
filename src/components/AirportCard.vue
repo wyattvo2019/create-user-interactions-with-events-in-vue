@@ -1,5 +1,5 @@
 <template>
-  <div class="airport">
+  <div class="airport" @click.shift="selectAirport(airport)">
     <p>{{ airport.abbreviation }}</p>
     <p>{{ airport.name }}</p>
     <p>{{ airport.city }}, {{ airport.state }}</p>
@@ -13,6 +13,12 @@ export default {
       type: Object,
       required: true
     }
+  },
+  setup() {
+    function selectAirport(airport) {
+      alert(`You clicked on ${airport.abbreviation}. It's located in ${airport.city}, ${airport.state}.`)
+    }
+    return { selectAirport }
   }
 }
 </script>
